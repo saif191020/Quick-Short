@@ -1,0 +1,12 @@
+{
+    "name": "Quick Short",
+    "description": "Instant URL Shortner.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": [
+        "activeTab"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
+}
