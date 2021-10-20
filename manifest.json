@@ -1,7 +1,7 @@
 {
     "name": "Quick Short",
     "description": "Instant URL Shortner.",
-    "version": "1.0",
+    "version": "1.1",
     "manifest_version": 3,
     "icons": {
         "32": "asset/logo-32.png",
