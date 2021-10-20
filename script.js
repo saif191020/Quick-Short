@@ -8,7 +8,17 @@ function display(text, viText) {
     const notificationElement = document.getElementById('notification_layout')
     notificationElement.classList.remove("is-hidden")
 }
-
+function displayError(error) {
+    const mainElement = document.getElementById('main_content');
+    mainElement.classList.remove("is-loading")
+    mainElement.classList.remove("is-light")
+    mainElement.classList.add("is-danger")
+    if (error === undefined)
+        mainElement.innerHTML = "Not Possible here ";
+    else
+        mainElement.innerHTML = error.split(',')[0];
+    // mainElement.dataset.fullLink = text
+}
 chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
     fetch('https://api.shrtco.de/v2/shorten?url=' + tabs[0].url)
         .then(data => data.json())
@@ -16,9 +26,12 @@ chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
             if (shrtData.ok != undefined && shrtData.ok == true) {
                 display(shrtData.result.full_short_link, shrtData.result.short_link)
             } else if (shrtData.ok != undefined && shrtData.ok == false) {
-                display(shrtData.error)
+                displayError(shrtData.error)
             }
         })
+        .catch(function () {
+            displayError("Something Went Wrong!")
+        });
 });
 
 document.getElementById('deleteButton').onclick = function buttonClick() {
@@ -27,9 +40,11 @@ document.getElementById('deleteButton').onclick = function buttonClick() {
 }
 document.getElementById('main_content').onclick = function shrtCodeClick() {
     const mainElement = document.getElementById('main_content');
-    setClipboard(mainElement.dataset.fullLink)
-    const notificationElement = document.getElementById('notification_layout')
-    notificationElement.classList.remove("is-hidden")
+    if (!mainElement.classList.contains('is-danger')) {
+        setClipboard(mainElement.dataset.fullLink)
+        const notificationElement = document.getElementById('notification_layout')
+        notificationElement.classList.remove("is-hidden")
+    }
 
 
 }

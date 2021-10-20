@@ -3,6 +3,12 @@
     "description": "Instant URL Shortner.",
     "version": "1.0",
     "manifest_version": 3,
+    "icons": {
+        "32": "asset/logo-32.png",
+        "48": "asset/logo-48.png",
+        "64": "asset/logo-64.png",
+        "128": "asset/logo-128.png"
+    },
     "permissions": [
         "activeTab"
     ],
